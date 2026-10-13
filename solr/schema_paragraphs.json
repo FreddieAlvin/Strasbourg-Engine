@@ -1,0 +1,30 @@
+{
+  "add-field-type": [
+    {
+      "name": "text_basic",
+      "class": "solr.TextField",
+      "positionIncrementGap": "100",
+      "indexAnalyzer": {
+        "tokenizer": { "class": "solr.StandardTokenizerFactory" },
+        "filters": [ { "class": "solr.LowerCaseFilterFactory" } ]
+      },
+      "queryAnalyzer": {
+        "tokenizer": { "class": "solr.StandardTokenizerFactory" },
+        "filters": [ { "class": "solr.LowerCaseFilterFactory" } ]
+      }
+    }
+  ],
+  "add-field": [
+    { "name": "case_id",           "type": "string",     "stored": true },
+    { "name": "title",             "type": "text_basic", "stored": true },
+    { "name": "position",          "type": "pint",       "stored": true },
+    { "name": "para_no",           "type": "pint",       "stored": true },
+    { "name": "text",              "type": "text_basic", "stored": true },
+    { "name": "is_rationale",      "type": "boolean",    "stored": true },
+    { "name": "year",              "type": "pint",       "stored": true },
+    { "name": "defendants",        "type": "string",     "stored": true, "multiValued": true },
+    { "name": "alleged_articles",  "type": "string",     "stored": true, "multiValued": true },
+    { "name": "violated_articles", "type": "string",     "stored": true, "multiValued": true },
+    { "name": "outcome",           "type": "string",     "stored": true }
+  ]
+}

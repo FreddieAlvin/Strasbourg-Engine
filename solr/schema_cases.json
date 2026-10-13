@@ -1,0 +1,39 @@
+{
+  "add-field-type": [
+    {
+      "name": "text_basic",
+      "class": "solr.TextField",
+      "positionIncrementGap": "100",
+      "indexAnalyzer": {
+        "tokenizer": { "class": "solr.StandardTokenizerFactory" },
+        "filters": [ { "class": "solr.LowerCaseFilterFactory" } ]
+      },
+      "queryAnalyzer": {
+        "tokenizer": { "class": "solr.StandardTokenizerFactory" },
+        "filters": [ { "class": "solr.LowerCaseFilterFactory" } ]
+      }
+    }
+  ],
+  "add-field": [
+    { "name": "case_no",                "type": "string",     "stored": true },
+    { "name": "title",                  "type": "text_basic", "stored": true },
+    { "name": "judgment_date",          "type": "pdate",      "stored": true },
+    { "name": "year",                   "type": "pint",       "stored": true },
+    { "name": "split",                  "type": "string",     "stored": true },
+    { "name": "defendants",             "type": "string",     "stored": true, "multiValued": true },
+    { "name": "applicants",             "type": "text_basic", "stored": true, "multiValued": true },
+    { "name": "alleged_articles",       "type": "string",     "stored": true, "multiValued": true },
+    { "name": "violated_articles",      "type": "string",     "stored": true, "multiValued": true },
+    { "name": "alleged_article_names",  "type": "text_basic", "stored": true, "multiValued": true },
+    { "name": "violated_article_names", "type": "text_basic", "stored": true, "multiValued": true },
+    { "name": "outcome",                "type": "string",     "stored": true },
+    { "name": "facts",                  "type": "text_basic", "stored": true, "multiValued": true },
+    { "name": "facts_intro",            "type": "text_basic", "stored": false, "multiValued": true },
+    { "name": "rationale_text",         "type": "text_basic", "stored": false, "multiValued": true },
+    { "name": "silver_rationales",      "type": "pint",       "stored": true, "indexed": false, "multiValued": true },
+    { "name": "gold_rationales",        "type": "pint",       "stored": true, "indexed": false, "multiValued": true },
+    { "name": "para_numbers",           "type": "pint",       "stored": true, "indexed": false, "multiValued": true },
+    { "name": "n_paragraphs",           "type": "pint",       "stored": true },
+    { "name": "n_words",                "type": "pint",       "stored": true }
+  ]
+}
