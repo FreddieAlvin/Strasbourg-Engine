@@ -1,0 +1,30 @@
+# Solr for the Strasbourg Engine.
+#   docker compose up -d      start (cores are created on first boot)
+#   docker compose down       stop (index data survives in the named volume)
+#   docker compose down -v    stop AND wipe the index
+services:
+  solr:
+    image: solr:10
+    container_name: strasbourg_solr
+    ports:
+      - "8983:8983"
+    environment:
+      SOLR_HEAP: 2g   # room for dense vectors later
+    volumes:
+      - solr_data:/var/solr
+      - ./solr:/opt/strasbourg/solr:ro   # our schema files, visible inside the container
+    # Two cores: one document per case, one document per fact paragraph.
+    # Solr 10 defaults to SolrCloud; --user-managed (standalone) is what the
+    # course tutorial and `solr-precreate` use, and what pre-created cores need.
+    command:
+      - bash
+      - -c
+      - "precreate-core cases; precreate-core paragraphs; exec solr-foreground --user-managed"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8983/solr/cases/admin/ping || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+volumes:
+  solr_data:

@@ -1,0 +1,101 @@
+{
+  "version": "draft-2026-10-12",
+  "notes": "Information needs for the Strasbourg Engine. 'query' is what a user types: it is run unchanged by every retrieval setup and must not be tuned per setup once frozen. 'filter' is a fixed constraint of the need, applied identically by every setup. 'description' and 'narrative' are the criteria assessors judge against. 'type' characterises the need (for slides and report analysis); it is not used by retrieval.",
+  "relevance_scale": {
+    "2": "Relevant: the situation described in the need is a central element of the case's facts",
+    "1": "Partially relevant: the situation is present but secondary, or matches the narrative only in part",
+    "0": "Not relevant: absent, mentioned only in passing, or a different (neighbouring) situation"
+  },
+  "types": {
+    "T1": "Factual situation: find cases where a concrete situation happened to the applicant",
+    "T2": "Legal concept vs. narrative facts: the user names a legal concept that the facts describe in concrete, different words (vocabulary gap)",
+    "T3": "Procedural fairness: how the domestic proceedings were conducted",
+    "T4": "Rights in conflict: an individual freedom against a State interest or another person's rights",
+    "T5": "Situation plus structured constraint: a textual need restricted by metadata (e.g. respondent state)"
+  },
+  "needs": [
+    {
+      "id": "IN1",
+      "title": "Confessions coerced by police ill-treatment",
+      "type": "T2",
+      "secondary_types": [
+        "T1"
+      ],
+      "query": "confession coerced by police beating ill-treatment",
+      "description": "Cases where the applicant alleges they were beaten or coerced by police into confessing to a crime.",
+      "narrative": "Relevant: physical violence, threats or psychological pressure by police or investigators during arrest or questioning with the aim of obtaining a confession or self-incriminating statement, including cases where such a confession was later used at trial. Not relevant: ill-treatment during arrest, in prison or at demonstrations with no link to a confession or statement; confessions retracted for reasons other than coercion.",
+      "filter": null
+    },
+    {
+      "id": "IN2",
+      "title": "Journalists sanctioned for articles about public figures",
+      "type": "T4",
+      "secondary_types": [
+        "T1"
+      ],
+      "query": "journalist convicted defamation article about politician public official",
+      "description": "Cases where a journalist or publisher was convicted or ordered to pay damages for an article about a public official or politician.",
+      "narrative": "Relevant: criminal conviction, fine or civil damages imposed on a journalist, editor or publisher because of a published article, broadcast or book concerning a politician, civil servant, judge or other public official. Not relevant: journalists as victims of violence or surveillance; defamation proceedings between private individuals; sanctions for content not concerning a public figure.",
+      "filter": null
+    },
+    {
+      "id": "IN3",
+      "title": "Unfair trial due to restricted access to evidence or witnesses",
+      "type": "T3",
+      "secondary_types": [
+        "T2"
+      ],
+      "query": "fair trial no access to classified evidence unable to cross-examine witnesses",
+      "description": "Cases where the right to a fair trial was compromised because the applicant could not access classified documents, cross-examine key witnesses, or review the opposing party's evidence.",
+      "narrative": "Relevant: the applicant (in criminal, civil or administrative proceedings) was refused access to secret or classified material used against them; was convicted on statements of absent or anonymous witnesses they could not question; or could not see or comment on evidence or submissions of the other party. Not relevant: fair-trial complaints about length of proceedings, judicial impartiality, legal aid, or non-enforcement of judgments.",
+      "filter": null
+    },
+    {
+      "id": "IN4",
+      "title": "Bans on religious symbols and clothing",
+      "type": "T4",
+      "secondary_types": [
+        "T1"
+      ],
+      "query": "ban on wearing religious symbols headscarf veil school workplace",
+      "description": "Cases involving restrictions or bans on manifesting religion, such as wearing religious symbols or clothing in public institutions, schools or the workplace.",
+      "narrative": "Relevant: prohibitions or sanctions for wearing headscarves, veils, skullcaps, crosses or other religious clothing or symbols, or the display of religious symbols (e.g. crucifixes) in state institutions, schools, courts or employment. Not relevant: religious organisations' registration, conscientious objection, religious education marks, or cases where the applicant's religion is mentioned without a restriction on manifesting it.",
+      "filter": null
+    },
+    {
+      "id": "IN5",
+      "title": "Overcrowded and unsanitary detention in Southern European states",
+      "type": "T5",
+      "secondary_types": [
+        "T1"
+      ],
+      "query": "overcrowded prison cells poor sanitary conditions",
+      "description": "Cases against Southern European states concerning overcrowding and inadequate sanitary conditions in detention centres.",
+      "narrative": "Relevant: facts describe cell size or number of inmates, insufficient personal space, lack of toilets, hygiene, ventilation or hot water in a prison, remand centre or police or immigration detention facility of a Southern European state. Not relevant: complaints only about the length or lawfulness of detention, or ill-treatment by guards without a description of material conditions.",
+      "filter": "defendants:(ALBANIA OR ANDORRA OR \"BOSNIA & HERZEGOVINA\" OR CROATIA OR CYPRUS OR \"FORMER YUGOSLAV MACEDONIA\" OR \"NORTH MACEDONIA\" OR GREECE OR ITALY OR MALTA OR MONTENEGRO OR PORTUGAL OR \"SAN MARINO\" OR SERBIA OR SLOVENIA OR SPAIN)",
+      "filter_note": "Southern Europe = UN M49 'Southern Europe' region plus Cyprus (Turkey and Bulgaria excluded). Group decision to confirm."
+    },
+    {
+      "id": "IN6",
+      "title": "Expulsion or extradition to a risk of torture",
+      "type": "T1",
+      "secondary_types": [
+        "T2"
+      ],
+      "query": "extradition deportation risk of torture ill-treatment in receiving country",
+      "description": "Cases concerning the proposed extradition or deportation of an applicant to a third country where they faced a real risk of torture or inhuman treatment.",
+      "narrative": "Relevant: the applicant contests a planned or executed extradition, deportation or expulsion, arguing they would face torture, ill-treatment, persecution or death in the destination country. Not relevant: expulsion cases argued only on family-life grounds; detention pending deportation without a risk argument; ill-treatment suffered in the respondent state itself.",
+      "filter": null
+    },
+    {
+      "id": "IN7",
+      "title": "Civilian casualties from bombardment and shelling",
+      "type": "T1",
+      "secondary_types": [],
+      "query": "aerial bombardment shelling civilians killed military operation",
+      "description": "Cases where civilians were killed or injured, or property destroyed, by aerial bombardment or shelling during military operations.",
+      "narrative": "Relevant: deaths, injuries or destruction of homes and property caused by air strikes, artillery or mortar shelling in the course of military or security operations. Not relevant: terrorist bomb attacks and prosecutions of bombers; disappearances or extrajudicial killings without an attack; landmine accidents.",
+      "filter": null
+    }
+  ]
+}
