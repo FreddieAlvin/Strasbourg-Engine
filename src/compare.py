@@ -176,6 +176,7 @@ def main():
     parser.add_argument("--rows", type=int, default=10)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     args = parser.parse_args()
+    args.out = args.out.resolve()  # --out may be relative; relative_to(ROOT) below needs an absolute path
 
     comparisons = [run_need(need, args.rows) for need in load_needs()]
     write_markdown(comparisons, args.out)

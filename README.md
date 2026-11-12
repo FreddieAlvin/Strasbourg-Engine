@@ -16,10 +16,12 @@ macOS/Linux: `make all`. On Windows (PowerShell or Git Bash) run the same steps 
 ```bash
 docker compose up -d --wait        # Solr 10 on http://localhost:8983 with cores "cases" and "paragraphs"
 python src/prepare.py              # data/*.jsonl -> data/processed/{cases,paragraphs}.jsonl  (~15 s)
-python src/index.py                # rebuild both cores: schema + documents  (~1 min)
+python src/index.py                # rebuild both cores: schema + documents  (~25 s measured)
 python src/search.py "overcrowded cell detention" --rows 5
 python src/search.py "overcrowded cell detention" --setup S1 --rows 5
 python src/compare.py                 # S0 vs S1 on all 7 needs -> eval/runs/s0_vs_s1.md
+python src/evaluate.py                # metrics from eval/qrels.csv -> eval/results.md, chart
+python src/trec.py                    # TREC qrels/runs, MAP/P@10/nDCG (pytrec_eval), precision-recall curves
 ```
 
 `docker compose down` stops Solr and keeps the index. `docker compose down -v` wipes it.
@@ -33,9 +35,15 @@ python src/compare.py                 # S0 vs S1 on all 7 needs -> eval/runs/s0_
 | `src/index.py` | resets a core, applies the schema and posts the documents (`--schemaless` for the smoke test) |
 | `src/search.py` | query CLI and the retrieval setups (`SETUPS`: S0, S1) |
 | `src/compare.py` | runs every information need with S0 and S1; writes `eval/runs/s0_vs_s1.md` |
+| `src/trec.py` | exports qrels and runs in TREC format (tutorial 06), runs `pytrec_eval` (MAP, P@N, R@10, RR, nDCG), plots 11-point P-R curves |
+| `src/evaluate.py` | reads `eval/qrels.csv`; computes P@5, P@10, graded@10, nDCG@10, AP@10; writes `eval/results.{md,csv}`, `eval/to_verify.csv` and a chart |
 | `solr/schema_*.json` | Schema API definitions, one per core |
 | `eval/needs.json` | information needs (id, query, description, narrative) |
+| `eval/qrels.csv` | manual relevance judgments (0/1/2) for the top 10 of S0 and S1 on every need; `eval/s0_vs_s1_reviewed.md` is the annotated sheet |
+| `eval/results.md` | metrics table produced by `src/evaluate.py` |
+| `eval/trec/` | qrels and runs in TREC format and the `src/trec.py` results (work with `trec_eval` too) |
 | `notebooks/` | exploration and analysis |
+| `report/checkpoint_report.md` | checkpoint report: collection, indexing, retrieval, evaluation |
 | `report/figures/` | figures used in slides and report |
 
 ## Documents
@@ -58,6 +66,7 @@ Same query string (and the same filter, if any) is used for every setup.
 | S1 | English possessive, ASCII fold, stopwords, Porter stem (`text_en`) | edismax, `qf=facts_en title_en`, BM25 defaults |
 
 `python src/compare.py` writes a review sheet (`eval/runs/s0_vs_s1.md` + `.csv`) with top-10 lists, snippets, overlap, and blank yes/kinda/no marks.
+The completed judgments live in `eval/qrels.csv`; re-running `compare.py` does not touch them, but if the index or the setups change the ranks no longer match and the new top 10 must be judged again.
 
 ## Notes
 

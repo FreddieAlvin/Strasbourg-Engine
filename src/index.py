@@ -78,9 +78,14 @@ def post_documents(core, docs_file, batch_size):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("cores", nargs="*", choices=list(CORES), help="default: all cores")
+    # No `choices=` here: on Python <= 3.11, nargs="*" + choices rejects the empty default
+    # ("invalid choice: []") and `python src/index.py` / `make index` would fail. Validate by hand.
+    parser.add_argument("cores", nargs="*", help=f"any of {', '.join(CORES)}; default: all cores")
     parser.add_argument("--schemaless", action="store_true", help="skip our schema; Solr guesses field types")
     args = parser.parse_args()
+    unknown = [c for c in args.cores if c not in CORES]
+    if unknown:
+        parser.error(f"unknown core(s) {unknown}; choose from {list(CORES)}")
 
     for core in args.cores or list(CORES):
         cfg = CORES[core]

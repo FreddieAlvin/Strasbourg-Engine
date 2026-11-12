@@ -1,7 +1,7 @@
 # Shortcuts for macOS/Linux. On Windows (no make), run the commands shown in README.md.
 PY ?= python3
 
-.PHONY: all up down reset prepare index smoke compare
+.PHONY: all up down reset prepare index smoke compare evaluate trec
 
 all: up prepare index smoke
 
@@ -26,3 +26,9 @@ smoke:
 
 compare:
 	$(PY) src/compare.py
+
+evaluate:         ## metrics from eval/qrels.csv (no Solr needed)
+	$(PY) src/evaluate.py
+
+trec:             ## TREC files, MAP/P@10/nDCG and precision-recall curves (no Solr needed)
+	$(PY) src/trec.py
